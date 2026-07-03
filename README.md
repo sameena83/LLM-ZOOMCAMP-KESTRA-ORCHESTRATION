@@ -190,4 +190,92 @@ English Brevity Agent:
 
 ```
 
+Reasoning:
+✅ About 2–5x more
+
+When I compared the token usage between the short and long summaries, I found that the long summary used significantly more output tokens.
+
+In Question 3 (short summary), the Multilingual Agent used 83 output tokens, while in Question 4 (long summary), it used 169 output tokens. This is roughly 2 times more tokens.
+
+This increase happens because the long summary includes more detailed explanations and additional sentences, which naturally requires more tokens to generate.Therefore, the correct choice is “2–5x more”, since the long version clearly uses more tokens than the short version, even though in this case it is closest to about 2x.
+
+
+
+
+
+## Question 5: Modifying a flow
+
+Open 4_simple_agent.yaml in the Kestra flow editor. Find the english_brevity task and change its prompt from asking for exactly 1 sentence to asking for exactly 3 sentences.
+
+Save the flow, then run it with summary_length = long.
+
+Compare the english_brevity output token count to the original 1-sentence version (also with summary_length = long). How do they compare?
+
+1. About the same (within 20%) <-- answer
+2. 2-4x more
+3. 5-10x more
+4. 10x+ more
+
+### Output
+
+INFO 2026-07-03T19:45:24.792546Z 📊 Token Usage Summary:
+
+Multilingual Agent:
+- Input tokens: 282
+- Output tokens: 203
+- Total tokens: 485
+
+English Brevity Agent:
+- Input tokens: 218
+- Output tokens: 88
+- Total tokens: 306
+
+💡 Tip: Monitor token usage to understand costs and optimize prompts!
+
+Answer and Reasoning:
+
+ 2–4x more
+
+After modifying the english_brevity task to generate exactly 3 sentences instead of 1 sentence and running the flow with summary_length = long, I observed an increase in the output token count.
+
+In the original run (1 sentence), the English Brevity Agent used 43 output tokens. After changing the prompt to generate 3 sentences, it used 88 output tokens.
+
+This is approximately:
+
+88÷43≈2.05
+
+or about 2 times more output tokens.
+
+The increase is expected because generating three sentences requires the model to produce more content than a single sentence. As a result, the output token count increases proportionally.
+
+## Question 6: Best Practices
+
+Based on what you learned in this module, for production workflows requiring deterministic, repeatable results with strict compliance requirements (e.g., financial reporting, workflows in highly regulated industries), which approach is most appropriate?
+
+1. Always use AI agents for maximum flexibility and adaptation
+2. Use traditional task-based workflows for predictability and auditability <-- answer
+3. Use only RAG without agents for better performance
+4. Use web search tools exclusively to ensure current data
+
+Reasoning:
+
+✅ Use traditional task-based workflows for predictability and auditability
+
+Explanation:
+For production systems in highly regulated or compliance-heavy environments (such as finance, healthcare, or legal workflows), the most important requirements are determinism, repeatability, and auditability.
+
+Traditional task-based workflows (like structured Kestra flows) are preferred because they:
+
+Produce consistent, repeatable outputs
+-Are easy to trace and debug step-by-step
+-Provide clear execution logs for auditing
+-Do not introduce randomness or variability like AI agents might
+
+In contrast:
+
+-AI agents add flexibility but reduce determinism
+-RAG improves context but still depends on LLM generation variability
+-Web search introduces external uncertainty and inconsistency
+
+Therefore, for strict compliance use cases, structured workflow orchestration is the safest and most reliable approach
 
