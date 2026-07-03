@@ -44,8 +44,8 @@ services:
         kestra:
           server:
             basicAuth:
-              username: "sameenah.tm@gmail.com"
-              password: Mehadiya@31
+              username: "xxxxxx@gmail.com"
+              password: xxxxxx
           repository:
             type: postgres
           storage:
